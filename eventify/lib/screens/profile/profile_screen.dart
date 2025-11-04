@@ -250,27 +250,6 @@ class _ProfilePageState extends State<ProfilePage> {
           ],
         ),
       ),
-      bottomNavigationBar: Container(
-        decoration: const BoxDecoration(
-          color: Color(0xFF2d1b4e),
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(30),
-            topRight: Radius.circular(30),
-          ),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              _buildNavItem(Icons.home_outlined, 0),
-              _buildNavItem(Icons.calendar_today_outlined, 1),
-              _buildNavItem(Icons.star_outline, 2),
-              _buildNavItem(Icons.person, 3),
-            ],
-          ),
-        ),
-      ),
     );
   }
 
@@ -295,25 +274,6 @@ class _ProfilePageState extends State<ProfilePage> {
             ),
             const Icon(Icons.chevron_right, size: 24),
           ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildNavItem(IconData icon, int index) {
-    final isSelected = _selectedIndex == index;
-    return GestureDetector(
-      onTap: () => _onItemTapped(index),
-      child: Container(
-        padding: const EdgeInsets.all(12),
-        decoration: BoxDecoration(
-          color: isSelected ? Colors.white : Colors.transparent,
-          shape: BoxShape.circle,
-        ),
-        child: Icon(
-          icon,
-          color: isSelected ? const Color(0xFF2d1b4e) : Colors.white,
-          size: 28,
         ),
       ),
     );
