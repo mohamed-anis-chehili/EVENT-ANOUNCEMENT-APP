@@ -9,5 +9,3 @@ django-environ
 psycopg2-binary
 python-decouple
 pillow
-dj_database_url
-python-3.13.6
