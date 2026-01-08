@@ -11,13 +11,19 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
 from decouple import config
+import dj_database_url
+from environ import Env
+import env
 from pathlib import Path
 from django.core.management.utils import get_random_secret_key
 import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
-
+ENVIRONMENT = config('ENVIRONMENT')
+if ENVIRONMENT == 'development':
+  DEBUG = True
+else:
+  DEBUG = False
 
 
 # Quick-start development settings - unsuitable for production
@@ -113,6 +119,10 @@ AUTH_PASSWORD_VALIDATORS = [
         "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",
     },
 ]
+
+POSTGRES_LOCALLY = True
+if ENVIRONMENT == "production" or POSTGRES_LOCALLY ==True:
+  DATABASES['default'] = dj_database_url.parse(env('DATABASE_URL'))
 
 
 # Internationalization
