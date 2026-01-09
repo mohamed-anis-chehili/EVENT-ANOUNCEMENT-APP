@@ -42,8 +42,11 @@ urlpatterns =[
     # Event Favorite URLs
     path('favorites/', views.getFavorites),
     path('favorites/create/', views.createFavorite),
+    path('favorites/user/<str:user_id>/', views.getFavoritesByUser),
+    path('favorites/check/<str:user_id>/<str:event_id>/', views.hasFavorited),
     path('favorites/<str:pk>/', views.getFavorite),
     path('favorites/<str:pk>/delete/', views.deleteFavorite),
+    path('favorites/remove/<str:user_id>/<str:event_id>/', views.removeFavoriteByUserEvent),
     
     # Photo URLs
     path('photos/', views.getPhotos),
@@ -60,3 +63,4 @@ urlpatterns =[
     path('reposts/<str:pk>/delete/', views.deleteRepost),
     path('reposts/remove/<str:user_id>/<str:event_id>/', views.removeRepostByUserEvent),
 ]
+
