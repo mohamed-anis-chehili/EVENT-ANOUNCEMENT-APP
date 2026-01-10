@@ -1,11 +1,17 @@
 from rest_framework import serializers
 from .models import Event, User, Post, Comment, Photo, EventFavorite, Repost
 
-
 class UserSerializer(serializers.ModelSerializer):
     photo = serializers.SerializerMethodField()
-
-
+    
+    class Meta:
+        model = User
+        fields = '__all__'
+    
+    def get_photo(self, obj):
+        if obj.photo:
+            return obj.photo.url
+        return None
 
 class PhotoSerializer(serializers.ModelSerializer):
     image = serializers.SerializerMethodField()
@@ -16,51 +22,46 @@ class PhotoSerializer(serializers.ModelSerializer):
     
     def get_image(self, obj):
         if obj.image:
-            url = obj.image.url
+            return obj.image.url
         return None
 
 class CommentSerializer(serializers.ModelSerializer):
     user = UserSerializer(read_only=True)
-
+    
     class Meta:
         model = Comment
         fields = '__all__'
-
 
 class PostSerializer(serializers.ModelSerializer):
     user = UserSerializer(read_only=True)
     photos = PhotoSerializer(many=True, read_only=True)
     comments = CommentSerializer(many=True, read_only=True)
-
+    
     class Meta:
         model = Post
         fields = '__all__'
-
 
 class EventSerializer(serializers.ModelSerializer):
     creator = UserSerializer(read_only=True)
     photos = PhotoSerializer(many=True, read_only=True)
     posts = PostSerializer(many=True, read_only=True)
-
+    
     class Meta:
         model = Event
         fields = '__all__'
 
-
 class EventFavoriteSerializer(serializers.ModelSerializer):
     user = UserSerializer(read_only=True)
     event = EventSerializer(read_only=True)
-
+    
     class Meta:
         model = EventFavorite
         fields = '__all__'
 
-
 class RepostSerializer(serializers.ModelSerializer):
     user = UserSerializer(read_only=True)
     event = EventSerializer(read_only=True)
-
+    
     class Meta:
         model = Repost
         fields = ['id', 'user', 'event', 'caption', 'created_at']
-
