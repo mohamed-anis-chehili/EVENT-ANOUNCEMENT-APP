@@ -5,7 +5,6 @@ from .models import Event, User, Post, Comment, Photo, EventFavorite, Repost
 class UserSerializer(serializers.ModelSerializer):
     photo = serializers.SerializerMethodField()
 
-@@ -26,12 +22,9 @@ def get_photo(self, obj):
 
 
 class PhotoSerializer(serializers.ModelSerializer):
@@ -18,7 +17,6 @@ class PhotoSerializer(serializers.ModelSerializer):
     def get_image(self, obj):
         if obj.image:
             url = obj.image.url
-@@ -46,51 +39,8 @@ def get_image(self, obj):
         return None
 
 class CommentSerializer(serializers.ModelSerializer):
