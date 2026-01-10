@@ -99,10 +99,20 @@ WSGI_APPLICATION = "Eventify.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
+# Database
+# https://docs.djangoproject.com/en/5.2/ref/settings/#databases
+
 POSTGRES_LOCALLY = True
 database_url = env('DATABASE_URL', default='')
+
+# Initialize DATABASES dictionary
+DATABASES = {}
+
+# Configure PostgreSQL from DATABASE_URL
 if database_url and (ENVIRONMENT == "production" or POSTGRES_LOCALLY == True):
-  DATABASES['default'] = dj_database_url.parse(database_url)
+    DATABASES['default'] = dj_database_url.parse(database_url)
+else:
+    raise ValueError("DATABASE_URL environment variable is required")
 
 
 # Password validation
